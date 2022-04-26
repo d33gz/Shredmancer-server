@@ -21,7 +21,7 @@ import lombok.ToString;
 public class Tab {
 	@Id
 	@Column(name = "song_key")
-	private int id;
+	private Long id;
 	@Column(name = "current_measure")
 	private int measure;
 	@Column(name = "repeat_info")
