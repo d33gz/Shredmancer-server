@@ -20,8 +20,10 @@ import lombok.ToString;
 @Table(name = "tab_list")
 public class Tab {
 	@Id
-	@Column(name = "song_key")
+	@Column(name = "tab_id")
 	private Long id;
+	@Column(name = "song_key")
+	private Long song_key;
 	@Column(name = "current_measure")
 	private int measure;
 	@Column(name = "repeat_info")
