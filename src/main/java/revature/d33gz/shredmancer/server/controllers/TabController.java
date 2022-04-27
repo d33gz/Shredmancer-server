@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import revature.d33gz.shredmancer.server.exception.ResourceNotFoundException;
+import revature.d33gz.shredmancer.server.models.Song;
 import revature.d33gz.shredmancer.server.models.Tab;
+import revature.d33gz.shredmancer.server.repository.SongRepository;
 import revature.d33gz.shredmancer.server.repository.TabRepository;
 
 @RestController
@@ -19,6 +21,9 @@ import revature.d33gz.shredmancer.server.repository.TabRepository;
 public class TabController {
 	@Autowired
 	TabRepository tabRepository;
+	
+	@Autowired
+	SongRepository songRepository;
 	
 	@GetMapping("/tabs")
 	public List<Tab> getAllTabs() {
@@ -28,9 +33,17 @@ public class TabController {
 	@GetMapping("/tabs/{songKey}")
 	public ArrayList<Tab> getOneTab(@PathVariable(value="songKey") Long sKey) {
 			//throws ResourceNotFoundException {
+		Song song = null;
+		try {
+			song = getMeasures(sKey);
+		} catch (ResourceNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int totalMeasures = song.getMeasures();
 		int measure = 1;
 		ArrayList<Tab> returnTab = new ArrayList<>();
-		while (measure < 3) {
+		while (measure <= totalMeasures) {
 			Tab tab = tabRepository.findTab(sKey, measure);
 					//.orElseThrow(() -> new ResourceNotFoundException("No Tabs found for this Song Key: " + sKey));
 			returnTab.add(tab);
@@ -38,4 +51,10 @@ public class TabController {
 		}
 		return returnTab;
 	}
+	
+	public Song getMeasures(Long sKey) throws ResourceNotFoundException {
+		return songRepository.findById(sKey)
+				.orElseThrow(() -> new ResourceNotFoundException("No Songs found for this Id: " + sKey));
+	}
+	
 }

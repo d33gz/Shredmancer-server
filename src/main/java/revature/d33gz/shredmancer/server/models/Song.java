@@ -23,7 +23,7 @@ public class Song {
 	@Id
 	@GeneratedValue
 	@Column(name = "song_id")
-	private int id;
+	private Long id;
 	@Column
 	private String songName;
 	@Column
