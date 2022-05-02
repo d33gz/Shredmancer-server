@@ -34,6 +34,7 @@ public class TabController {
 	public ArrayList<Tab> getOneTab(@PathVariable(value="songKey") Long sKey) {
 			//throws ResourceNotFoundException {
 		Song song = null;
+		System.out.println("here is our id" + sKey);
 		try {
 			song = getMeasures(sKey);
 		} catch (ResourceNotFoundException e) {
@@ -48,7 +49,9 @@ public class TabController {
 					//.orElseThrow(() -> new ResourceNotFoundException("No Tabs found for this Song Key: " + sKey));
 			returnTab.add(tab);
 			measure++;
+			System.out.println("This is our measure:" + totalMeasures);
 		}
+		System.out.println(returnTab.toString());
 		return returnTab;
 	}
 	

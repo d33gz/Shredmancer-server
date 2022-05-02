@@ -24,10 +24,26 @@ public class Song {
 	@GeneratedValue
 	@Column(name = "song_id")
 	private Long id;
+	public Long getId()
+	{
+		return id;
+	}
 	@Column
 	private String songName;
+	public String getSongName()
+	{
+		return songName;
+	}
 	@Column
 	private String bandName;
+	public String getBandName()
+	{
+		return bandName;
+	}
 	@Column(name = "total_measures")
 	private int measures;
+	public int getMeasures() {
+		// TODO Auto-generated method stub
+		return measures;
+	}
 }
